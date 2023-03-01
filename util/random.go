@@ -8,8 +8,11 @@ import (
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-func init() {
+var _ = seedRand()
+
+func seedRand() error {
 	rand.Seed(time.Now().UnixNano())
+	return nil
 }
 
 func RandomInt(min, max int64) int64 {
