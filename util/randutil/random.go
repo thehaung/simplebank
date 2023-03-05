@@ -15,11 +15,11 @@ func seedRand() error {
 	return nil
 }
 
-func RandomInt(min, max int64) int64 {
+func IntWithRange(min, max int64) int64 {
 	return min + rand.Int63n(max-min+1)
 }
 
-func RandomString(n int) string {
+func StringWithQuantity(n int) string {
 	var sb strings.Builder
 
 	k := len(alphabet)
@@ -32,15 +32,15 @@ func RandomString(n int) string {
 	return sb.String()
 }
 
-func RandomOwner() string {
-	return RandomString(6)
+func Owner() string {
+	return StringWithQuantity(6)
 }
 
-func RandomMoney() int64 {
-	return RandomInt(0, 1000)
+func Money() int64 {
+	return IntWithRange(0, 1000)
 }
 
-func RandomCurrency() string {
+func Currency() string {
 	currencies := []string{"USD", "VND", "EUR"}
 
 	n := len(currencies)
