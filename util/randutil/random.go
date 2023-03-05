@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const alphabet = "abcdefghijklmnopqrstuvwxyz"
+const _alphabet = "abcdefghijklmnopqrstuvwxyz"
 
 var _ = seedRand()
 
@@ -22,10 +22,10 @@ func IntWithRange(min, max int64) int64 {
 func StringWithQuantity(n int) string {
 	var sb strings.Builder
 
-	k := len(alphabet)
+	k := len(_alphabet)
 
 	for i := 0; i < n; i++ {
-		c := alphabet[rand.Intn(k)]
+		c := _alphabet[rand.Intn(k)]
 		sb.WriteByte(c)
 	}
 
