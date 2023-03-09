@@ -1,6 +1,8 @@
 name: Run CI For New PR
 
 on:
+  push:
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
