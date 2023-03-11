@@ -22,11 +22,8 @@ func (s *Server) createTransfer(ctx *gin.Context) {
 		return
 	}
 
-	if !s.isValidAccount(ctx, req.FromAccountID, req.Currency) {
-		return
-	}
-
-	if !s.isValidAccount(ctx, req.ToAccountID, req.Currency) {
+	if !s.isValidAccount(ctx, req.FromAccountID, req.Currency) ||
+		!s.isValidAccount(ctx, req.ToAccountID, req.Currency) {
 		return
 	}
 
