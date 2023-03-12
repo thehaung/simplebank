@@ -41,8 +41,12 @@ func Money() int64 {
 }
 
 func Currency() string {
-	currencies := []string{"USD", "VND", "EUR"}
+	currencies := []string{"USD", "VND", "EUR", "CAD"}
 
 	n := len(currencies)
 	return currencies[rand.Intn(n)]
+}
+
+func Email() string {
+	return StringWithQuantity(5) + "@email.com"
 }
