@@ -4,39 +4,58 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	"github.com/thehaung/simplebank/config"
 	db "github.com/thehaung/simplebank/db/sqlc"
+	"github.com/thehaung/simplebank/token"
+	"log"
 )
 
 type Server struct {
-	store  db.Store
-	router *gin.Engine
+	cfg        *config.Config
+	store      db.Store
+	tokenMaker token.Maker
+	router     *gin.Engine
 }
 
-func NewHttpServer(store db.Store) *Server {
-	server := &Server{
-		store: store,
+func NewHttpServer(cfg *config.Config, store db.Store) (*Server, error) {
+	log.Println(cfg.TokenSymmetricKey)
+	tokenMaker, err := token.NewPasetoMaker(cfg.TokenSymmetricKey)
+
+	if err != nil {
+		return nil, err
 	}
 
-	router := gin.Default()
+	server := &Server{
+		store:      store,
+		tokenMaker: tokenMaker,
+		cfg:        cfg,
+	}
 
 	v, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
-		err := v.RegisterValidation("currency", validCurrency)
+		err = v.RegisterValidation("currency", validCurrency)
 		if err != nil {
-			return nil
+			return nil, err
 		}
 	}
+	server.registerRouter()
 
-	router.POST("/users", server.createUser)
+	return server, nil
+}
 
-	router.GET("/accounts", server.listAccount)
-	router.GET("/accounts/:id", server.getAccount)
-	router.POST("/accounts", server.createAccount)
+func (s *Server) registerRouter() {
+	router := gin.Default()
 
-	router.POST("/transfers", server.createTransfer)
+	router.POST("/users", s.createUser)
+	router.POST("/users/login", s.loginUser)
 
-	server.router = router
-	return server
+	router.GET("/accounts", s.listAccount)
+	router.GET("/accounts/:id", s.getAccount)
+	router.POST("/accounts", s.createAccount)
+
+	router.POST("/transfers", s.createTransfer)
+
+	s.router = router
 }
 
 func (s *Server) Start(address string) error {

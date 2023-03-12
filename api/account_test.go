@@ -99,7 +99,7 @@ func TestGetAccountAPI(t *testing.T) {
 			tc.BuildStubs(store)
 
 			// start server
-			server := NewHttpServer(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 			url := fmt.Sprintf("/accounts/%d", tc.AccountID)
 			request, err := http.NewRequest(http.MethodGet, url, nil)
@@ -233,7 +233,7 @@ func TestListAccount(t *testing.T) {
 			tc.BuildStubs(store)
 
 			// start server
-			server := NewHttpServer(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 			url := "/accounts"
 			request, err := http.NewRequest(http.MethodGet, url, nil)
@@ -339,7 +339,7 @@ func TestCreateAccount(t *testing.T) {
 			store := mockdb.NewMockStore(ctrl)
 			tc.BuildStubs(store)
 			// start server
-			server := NewHttpServer(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 			url := "/accounts"
 			// Marshal body data to JSON

@@ -20,7 +20,10 @@ func main() {
 	}
 
 	dbStore := db.NewStore(conn)
-	httpServer := api.NewHttpServer(dbStore)
+	httpServer, err := api.NewHttpServer(conf, dbStore)
+	if err != nil {
+		log.Fatal("main - api.NewHttpServer(). Error:", err)
+	}
 
 	err = httpServer.Start(conf.HttpServerAddress)
 	if err != nil {
