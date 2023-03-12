@@ -3,15 +3,19 @@ package db
 import (
 	"context"
 	"github.com/stretchr/testify/require"
+	"github.com/thehaung/simplebank/util/hashutil"
 	"github.com/thehaung/simplebank/util/randutil"
 	"testing"
 	"time"
 )
 
 func createRandomUser(t *testing.T) User {
+	hashedPassword, err := hashutil.HashPassword(randutil.StringWithQuantity(6))
+	require.NoError(t, err)
+
 	arg := CreateUserParams{
 		Username:       randutil.Owner(),
-		HashedPassword: "secret",
+		HashedPassword: hashedPassword,
 		FullName:       randutil.Owner(),
 		Email:          randutil.Email(),
 	}
