@@ -10,6 +10,7 @@ type Config struct {
 	DbAddress           string        `mapstructure:"DB_ADDRESS"`
 	HttpServerAddress   string        `mapstructure:"HTTP_SERVER_ADDRESS"`
 	TokenSymmetricKey   string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
+	TokenSecretKey      string        `mapstructure:"TOKEN_SECRET_KEY"`
 	AccessTokenDuration time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
 }
 
