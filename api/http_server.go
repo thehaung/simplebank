@@ -7,7 +7,6 @@ import (
 	"github.com/thehaung/simplebank/config"
 	db "github.com/thehaung/simplebank/db/sqlc"
 	"github.com/thehaung/simplebank/token"
-	"log"
 )
 
 type Server struct {
@@ -18,8 +17,7 @@ type Server struct {
 }
 
 func NewHttpServer(cfg *config.Config, store db.Store) (*Server, error) {
-	log.Println(cfg.TokenSymmetricKey)
-	tokenMaker, err := token.NewPasetoMaker(cfg.TokenSymmetricKey)
+	tokenMaker, err := token.NewJwtMaker(cfg.TokenSymmetricKey)
 
 	if err != nil {
 		return nil, err
