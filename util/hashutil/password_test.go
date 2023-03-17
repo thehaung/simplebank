@@ -25,3 +25,9 @@ func TestPassword(t *testing.T) {
 	require.NotEmpty(t, hashedPassword2)
 	require.NotEqual(t, hashedPassword1, hashedPassword2)
 }
+
+func BenchmarkPassword(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = CheckPassword("secret", "$2a$10$I00w.S7ELh37J1UpRsGYruqVgAM5jGsQUxSfrNmmqflYytXf4CVY2")
+	}
+}
