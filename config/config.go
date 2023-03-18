@@ -6,12 +6,13 @@ import (
 )
 
 type Config struct {
-	DbDriver            string        `mapstructure:"DB_DRIVER"`
-	DbAddress           string        `mapstructure:"DB_ADDRESS"`
-	HttpServerAddress   string        `mapstructure:"HTTP_SERVER_ADDRESS"`
-	TokenSymmetricKey   string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
-	TokenSecretKey      string        `mapstructure:"TOKEN_SECRET_KEY"`
-	AccessTokenDuration time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
+	DbDriver             string        `mapstructure:"DB_DRIVER"`
+	DbAddress            string        `mapstructure:"DB_ADDRESS"`
+	HttpServerAddress    string        `mapstructure:"HTTP_SERVER_ADDRESS"`
+	TokenSymmetricKey    string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
+	TokenSecretKey       string        `mapstructure:"TOKEN_SECRET_KEY"`
+	AccessTokenDuration  time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
+	RefreshTokenDuration time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
 }
 
 func Parse(path string) (*Config, error) {
